@@ -1,198 +1,217 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
-import Ecommerce from "./pages/Dashboard/Ecommerce";
-import Stocks from "./pages/Dashboard/Stocks";
-import Crm from "./pages/Dashboard/Crm";
-import Marketing from "./pages/Dashboard/Marketing";
-import Analytics from "./pages/Dashboard/Analytics";
-import SignIn from "./pages/AuthPages/SignIn";
-import SignUp from "./pages/AuthPages/SignUp";
-import NotFound from "./pages/OtherPage/NotFound";
-import UserProfiles from "./pages/UserProfiles";
-import Carousel from "./pages/UiElements/Carousel";
-import Maintenance from "./pages/OtherPage/Maintenance";
-import FiveZeroZero from "./pages/OtherPage/FiveZeroZero";
-import FiveZeroThree from "./pages/OtherPage/FiveZeroThree";
-import Videos from "./pages/UiElements/Videos";
-import Images from "./pages/UiElements/Images";
-import Alerts from "./pages/UiElements/Alerts";
-import Badges from "./pages/UiElements/Badges";
-import Pagination from "./pages/UiElements/Pagination";
-import Avatars from "./pages/UiElements/Avatars";
-import Buttons from "./pages/UiElements/Buttons";
-import ButtonsGroup from "./pages/UiElements/ButtonsGroup";
-import Notifications from "./pages/UiElements/Notifications";
-import LineChart from "./pages/Charts/LineChart";
-import BarChart from "./pages/Charts/BarChart";
-import PieChart from "./pages/Charts/PieChart";
-import Invoices from "./pages/Invoices";
-import ComingSoon from "./pages/OtherPage/ComingSoon";
-import FileManager from "./pages/FileManager";
-import Calendar from "./pages/Calendar";
-import BasicTables from "./pages/Tables/BasicTables";
-import DataTables from "./pages/Tables/DataTables";
-import PricingTables from "./pages/PricingTables";
-import Faqs from "./pages/Faqs";
-import Chats from "./pages/Chat/Chats";
-import FormElements from "./pages/Forms/FormElements";
-import FormLayout from "./pages/Forms/FormLayout";
-import Blank from "./pages/Blank";
-import EmailInbox from "./pages/Email/EmailInbox";
-import EmailDetails from "./pages/Email/EmailDetails";
+// src/App.tsx
+import { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { TenantProvider } from "./context/TenantContext";
 
-import TaskKanban from "./pages/Task/TaskKanban";
-import BreadCrumb from "./pages/UiElements/BreadCrumb";
-import Cards from "./pages/UiElements/Cards";
-import Dropdowns from "./pages/UiElements/Dropdowns";
-import Links from "./pages/UiElements/Links";
-import Lists from "./pages/UiElements/Lists";
-import Popovers from "./pages/UiElements/Popovers";
-import Progressbar from "./pages/UiElements/Progressbar";
-import Ribbons from "./pages/UiElements/Ribbons";
-import Spinners from "./pages/UiElements/Spinners";
-import Tabs from "./pages/UiElements/Tabs";
-import Tooltips from "./pages/UiElements/Tooltips";
-import Modals from "./pages/UiElements/Modals";
-import ResetPassword from "./pages/AuthPages/ResetPassword";
-import TwoStepVerification from "./pages/AuthPages/TwoStepVerification";
-import Success from "./pages/OtherPage/Success";
+// Layouts
 import AppLayout from "./layout/AppLayout";
 import AlternativeLayout from "./layout/AlternativeLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
-import TaskList from "./pages/Task/TaskList";
-import Saas from "./pages/Dashboard/Saas";
-import Logistics from "./pages/Dashboard/Logistics";
-import TextGeneratorPage from "./pages/Ai/TextGenerator";
-import ImageGeneratorPage from "./pages/Ai/ImageGenerator";
-import CodeGeneratorPage from "./pages/Ai/CodeGenerator";
-import VideoGeneratorPage from "./pages/Ai/VideoGenerator";
-import ProductList from "./pages/Ecommerce/ProductList";
-import AddProduct from "./pages/Ecommerce/AddProduct";
-import Billing from "./pages/Ecommerce/Billing";
-import SingleInvoice from "./pages/Ecommerce/SingleInvoice";
-import CreateInvoice from "./pages/Ecommerce/CreateInvoice";
-import Transactions from "./pages/Ecommerce/Transactions";
-import SingleTransaction from "./pages/Ecommerce/SingleTransaction";
-import TicketList from "./pages/Support/TicketList";
-import TicketReply from "./pages/Support/TicketReply";
-import Integrations from "./pages/OtherPage/Integrations";
-import ApiKeys from "./pages/OtherPage/ApiKeys";
+
+
+// ---- Dashboards (lazy) ----
+const Securityscore = lazy(() => import("./pages/Dashboard/Securityscore"));
+const Ecommerce = lazy(() => import("./pages/Dashboard/Ecommerce"));
+const Stocks = lazy(() => import("./pages/Dashboard/Stocks"));
+const Crm = lazy(() => import("./pages/Dashboard/Crm"));
+const Marketing = lazy(() => import("./pages/Dashboard/Marketing"));
+const Analytics = lazy(() => import("./pages/Dashboard/Analytics"));
+const Logistics = lazy(() => import("./pages/Dashboard/Logistics"));
+const ManageTenants = lazy(() => import("./pages/Tenants/ManageTenants"));
+
+// ---- Auth Pages (lazy) ----
+const SignIn = lazy(() => import("./pages/AuthPages/SignIn"));
+const SignUp = lazy(() => import("./pages/AuthPages/SignUp"));
+const ResetPassword = lazy(() => import("./pages/AuthPages/ResetPassword"));
+const TwoStepVerification = lazy(() => import("./pages/AuthPages/TwoStepVerification"));
+
+// ---- Other Pages (lazy) ----
+const NotFound = lazy(() => import("./pages/OtherPage/NotFound"));
+const Maintenance = lazy(() => import("./pages/OtherPage/Maintenance"));
+const Success = lazy(() => import("./pages/OtherPage/Success"));
+const FiveZeroZero = lazy(() => import("./pages/OtherPage/FiveZeroZero"));
+const FiveZeroThree = lazy(() => import("./pages/OtherPage/FiveZeroThree"));
+const ComingSoon = lazy(() => import("./pages/OtherPage/ComingSoon"));
+const Integrations = lazy(() => import("./pages/OtherPage/Integrations"));
+const ApiKeys = lazy(() => import("./pages/OtherPage/ApiKeys"));
+const Invoices = lazy(() => import("./pages/Invoices"));
+
+// ---- Applications (lazy) ----
+const Calendar = lazy(() => import("./pages/Calendar"));
+const FileManager = lazy(() => import("./pages/FileManager"));
+const Chats = lazy(() => import("./pages/Chat/Chats"));
+const TaskList = lazy(() => import("./pages/Task/TaskList"));
+const TaskKanban = lazy(() => import("./pages/Task/TaskKanban"));
+
+// ---- Ecommerce (lazy) ----
+const ProductList = lazy(() => import("./pages/Ecommerce/ProductList"));
+const AddProduct = lazy(() => import("./pages/Ecommerce/AddProduct"));
+const Billing = lazy(() => import("./pages/Ecommerce/Billing"));
+const SingleInvoice = lazy(() => import("./pages/Ecommerce/SingleInvoice"));
+const CreateInvoice = lazy(() => import("./pages/Ecommerce/CreateInvoice"));
+const Transactions = lazy(() => import("./pages/Ecommerce/Transactions"));
+const SingleTransaction = lazy(() => import("./pages/Ecommerce/SingleTransaction"));
+
+// ---- Support (lazy) ----
+const TicketList = lazy(() => import("./pages/Support/TicketList"));
+const TicketReply = lazy(() => import("./pages/Support/TicketReply"));
+
+// ---- Emails (lazy) ----
+const EmailInbox = lazy(() => import("./pages/Email/EmailInbox"));
+const EmailDetails = lazy(() => import("./pages/Email/EmailDetails"));
+
+// ---- Forms (lazy) ----
+const FormElements = lazy(() => import("./pages/Forms/FormElements"));
+const FormLayout = lazy(() => import("./pages/Forms/FormLayout"));
+
+// ---- Tables (lazy) ----
+const BasicTables = lazy(() => import("./pages/Tables/BasicTables"));
+const DataTables = lazy(() => import("./pages/Tables/DataTables"));
+
+// ---- Charts (lazy) ----
+const LineChart = lazy(() => import("./pages/Charts/LineChart"));
+const BarChart = lazy(() => import("./pages/Charts/BarChart"));
+const PieChart = lazy(() => import("./pages/Charts/PieChart"));
+
+// ---- UI Elements (lazy) ----
+const Alerts = lazy(() => import("./pages/UiElements/Alerts"));
+const Avatars = lazy(() => import("./pages/UiElements/Avatars"));
+const Badges = lazy(() => import("./pages/UiElements/Badges"));
+const BreadCrumb = lazy(() => import("./pages/UiElements/BreadCrumb"));
+const Buttons = lazy(() => import("./pages/UiElements/Buttons"));
+const ButtonsGroup = lazy(() => import("./pages/UiElements/ButtonsGroup"));
+const Cards = lazy(() => import("./pages/UiElements/Cards"));
+const Carousel = lazy(() => import("./pages/UiElements/Carousel"));
+const Dropdowns = lazy(() => import("./pages/UiElements/Dropdowns"));
+const Images = lazy(() => import("./pages/UiElements/Images"));
+const Links = lazy(() => import("./pages/UiElements/Links"));
+const Lists = lazy(() => import("./pages/UiElements/Lists"));
+const Modals = lazy(() => import("./pages/UiElements/Modals"));
+const Notifications = lazy(() => import("./pages/UiElements/Notifications"));
+const Pagination = lazy(() => import("./pages/UiElements/Pagination"));
+const Popovers = lazy(() => import("./pages/UiElements/Popovers"));
+const Progressbar = lazy(() => import("./pages/UiElements/Progressbar"));
+const Ribbons = lazy(() => import("./pages/UiElements/Ribbons"));
+const Spinners = lazy(() => import("./pages/UiElements/Spinners"));
+const Tabs = lazy(() => import("./pages/UiElements/Tabs"));
+const Tooltips = lazy(() => import("./pages/UiElements/Tooltips"));
+const Videos = lazy(() => import("./pages/UiElements/Videos"));
+
+// ---- Misc (lazy) ----
+const PricingTables = lazy(() => import("./pages/PricingTables"));
+const Faqs = lazy(() => import("./pages/Faqs"));
+const Blank = lazy(() => import("./pages/Blank"));
+const UserProfiles = lazy(() => import("./pages/UserProfiles"));
+
+// ---- AI Pages (lazy) ----
+const TextGeneratorPage = lazy(() => import("./pages/Ai/TextGenerator"));
+const ImageGeneratorPage = lazy(() => import("./pages/Ai/ImageGenerator"));
+const CodeGeneratorPage = lazy(() => import("./pages/Ai/CodeGenerator"));
+const VideoGeneratorPage = lazy(() => import("./pages/Ai/VideoGenerator"));
+
+function Loader() {
+  return (
+    <div className="p-6 text-sm text-gray-500 dark:text-gray-400">
+      Laddar…
+    </div>
+  );
+}
 
 export default function App() {
   return (
-    <>
+    <TenantProvider>
       <Router>
         <ScrollToTop />
-        <Routes>
-          {/* Dashboard Layout */}
-          <Route element={<AppLayout />}>
-            <Route index path="/" element={<Ecommerce />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/marketing" element={<Marketing />} />
-            <Route path="/crm" element={<Crm />} />
-            <Route path="/stocks" element={<Stocks />} />
-            <Route path="/saas" element={<Saas />} />
-            <Route path="/logistics" element={<Logistics />} />
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            {/* Dashboard layout */}
+            <Route element={<AppLayout />}>
+              {/* Start-sida */}
+              <Route path="/" element={<Securityscore />} />
 
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/invoice" element={<Invoices />} />
-            <Route path="/invoices" element={<Invoices />} />
-            <Route path="/chat" element={<Chats />} />
-            <Route path="/file-manager" element={<FileManager />} />
+              {/* Dashboards */}
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/marketing" element={<Marketing />} />
+              <Route path="/crm" element={<Crm />} />
+              <Route path="/stocks" element={<Stocks />} />
+              <Route path="/ecommerce" element={<Ecommerce />} />
+              <Route path="/logistics" element={<Logistics />} />
 
-            {/* E-commerce */}
-            <Route path="/product-list" element={<ProductList />} />
-            <Route path="/add-product" element={<AddProduct />} />
-            <Route path="/billing" element={<Billing />} />
-            <Route path="/single-invoice" element={<SingleInvoice />} />
-            <Route path="/create-invoice" element={<CreateInvoice />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/single-transaction" element={<SingleTransaction />} />
+              {/* Apps */}
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/invoice" element={<Invoices />} />
+              <Route path="/invoices" element={<Invoices />} />
+              <Route path="/chat" element={<Chats />} />
+              <Route path="/file-manager" element={<FileManager />} />
+              <Route path="/tenants" element={<ManageTenants />} />
 
-            {/* Support */}
-            <Route path="/ticket-list" element={<TicketList />} />
-            <Route path="/ticket-reply" element={<TicketReply />} />
+              {/* Ecommerce */}
+              <Route path="/product-list" element={<ProductList />} />
+              <Route path="/add-product" element={<AddProduct />} />
+              <Route path="/billing" element={<Billing />} />
+              <Route path="/single-invoice" element={<SingleInvoice />} />
+              <Route path="/create-invoice" element={<CreateInvoice />} />
+              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/single-transaction" element={<SingleTransaction />} />
 
-            {/* Others Page */}
-            <Route path="/profile" element={<UserProfiles />} />
-            <Route path="/faq" element={<Faqs />} />
-            <Route path="/pricing-tables" element={<PricingTables />} />
-            <Route path="/integrations" element={<Integrations />} />
-            <Route path="/api-keys" element={<ApiKeys />} />
-            <Route path="/blank" element={<Blank />} />
+              {/* Support */}
+              <Route path="/ticket-list" element={<TicketList />} />
+              <Route path="/ticket-reply" element={<TicketReply />} />
 
-            {/* Forms */}
-            <Route path="/form-elements" element={<FormElements />} />
-            <Route path="/form-layout" element={<FormLayout />} />
+              {/* Other */}
+              <Route path="/profile" element={<UserProfiles />} />
+              <Route path="/faq" element={<Faqs />} />
+              <Route path="/pricing-tables" element={<PricingTables />} />
+              <Route path="/integrations" element={<Integrations />} />
+              <Route path="/api-keys" element={<ApiKeys />} />
+              <Route path="/blank" element={<Blank />} />
 
-            {/* Applications */}
-            <Route path="/task-list" element={<TaskList />} />
-            <Route path="/task-kanban" element={<TaskKanban />} />
+              {/* Forms */}
+              <Route path="/form-elements" element={<FormElements />} />
+              <Route path="/form-layout" element={<FormLayout />} />
 
-            {/* Email */}
-            <Route path="/inbox" element={<EmailInbox />} />
-            <Route path="/inbox-details" element={<EmailDetails />} />
+              {/* Tasks */}
+              <Route path="/task-list" element={<TaskList />} />
+              <Route path="/task-kanban" element={<TaskKanban />} />
 
-            {/* Tables */}
-            <Route path="/basic-tables" element={<BasicTables />} />
-            <Route path="/data-tables" element={<DataTables />} />
+              {/* Email */}
+              <Route path="/inbox" element={<EmailInbox />} />
+              <Route path="/inbox-details" element={<EmailDetails />} />
 
-            {/* Ui Elements */}
-            <Route path="/alerts" element={<Alerts />} />
-            <Route path="/avatars" element={<Avatars />} />
-            <Route path="/badge" element={<Badges />} />
-            <Route path="/breadcrumb" element={<BreadCrumb />} />
-            <Route path="/buttons" element={<Buttons />} />
-            <Route path="/buttons-group" element={<ButtonsGroup />} />
-            <Route path="/cards" element={<Cards />} />
-            <Route path="/carousel" element={<Carousel />} />
-            <Route path="/dropdowns" element={<Dropdowns />} />
-            <Route path="/images" element={<Images />} />
-            <Route path="/links" element={<Links />} />
-            <Route path="/list" element={<Lists />} />
-            <Route path="/modals" element={<Modals />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/pagination" element={<Pagination />} />
-            <Route path="/popovers" element={<Popovers />} />
-            <Route path="/progress-bar" element={<Progressbar />} />
-            <Route path="/ribbons" element={<Ribbons />} />
-            <Route path="/spinners" element={<Spinners />} />
-            <Route path="/tabs" element={<Tabs />} />
-            <Route path="/tooltips" element={<Tooltips />} />
-            <Route path="/videos" element={<Videos />} />
+              {/* Tables */}
+              <Route path="/basic-tables" element={<BasicTables />} />
+              <Route path="/data-tables" element={<DataTables />} />
 
-            {/* Charts */}
-            <Route path="/line-chart" element={<LineChart />} />
-            <Route path="/bar-chart" element={<BarChart />} />
-            <Route path="/pie-chart" element={<PieChart />} />
-          </Route>
+              {/* Charts */}
+              <Route path="/line-chart" element={<LineChart />} />
+              <Route path="/bar-chart" element={<BarChart />} />
+              <Route path="/pie-chart" element={<PieChart />} />
+            </Route>
 
-          {/* Alternative Layout - for special pages */}
-          <Route element={<AlternativeLayout />}>
-            {/* AI Generator */}
-            <Route path="/text-generator" element={<TextGeneratorPage />} />
-            <Route path="/image-generator" element={<ImageGeneratorPage />} />
-            <Route path="/code-generator" element={<CodeGeneratorPage />} />
-            <Route path="/video-generator" element={<VideoGeneratorPage />} />
-          </Route>
+            {/* AI layout */}
+            <Route element={<AlternativeLayout />}>
+              <Route path="/text-generator" element={<TextGeneratorPage />} />
+              <Route path="/image-generator" element={<ImageGeneratorPage />} />
+              <Route path="/code-generator" element={<CodeGeneratorPage />} />
+              <Route path="/video-generator" element={<VideoGeneratorPage />} />
+            </Route>
 
-          {/* Auth Layout */}
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route
-            path="/two-step-verification"
-            element={<TwoStepVerification />}
-          />
+            {/* Auth */}
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/two-step-verification" element={<TwoStepVerification />} />
 
-          {/* Fallback Route */}
-          <Route path="*" element={<NotFound />} />
-          <Route path="/maintenance" element={<Maintenance />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/five-zero-zero" element={<FiveZeroZero />} />
-          <Route path="/five-zero-three" element={<FiveZeroThree />} />
-          <Route path="/coming-soon" element={<ComingSoon />} />
-        </Routes>
+            {/* Status / Fallback */}
+            <Route path="/maintenance" element={<Maintenance />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/five-zero-zero" element={<FiveZeroZero />} />
+            <Route path="/five-zero-three" element={<FiveZeroThree />} />
+            <Route path="/coming-soon" element={<ComingSoon />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </Router>
-    </>
+    </TenantProvider>
   );
 }

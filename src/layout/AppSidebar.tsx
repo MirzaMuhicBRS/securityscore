@@ -35,14 +35,14 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
-    name: "Dashboard",
+    name: "Tenants",
     subItems: [
-      { name: "Ecommerce", path: "/" },
+      { name: "Secure Score", path: "/", new: true },
+      { name: "Ecommerce", path: "/ecommerce" },
       { name: "Analytics", path: "/analytics" },
       { name: "Marketing", path: "/marketing" },
       { name: "CRM", path: "/crm" },
       { name: "Stocks", path: "/stocks" },
-      { name: "SaaS", path: "/saas", new: true },
       { name: "Logistics", path: "/logistics", new: true },
     ],
   },
@@ -443,39 +443,36 @@ const AppSidebar: React.FC = () => {
       onMouseEnter={() => !isExpanded && setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div
-        className={`py-8  flex ${
-          !isExpanded && !isHovered ? "xl:justify-center" : "justify-start"
-        }`}
-      >
-        <Link to="/">
-          {isExpanded || isHovered || isMobileOpen ? (
-            <>
-              <img
-                className="dark:hidden"
-                src="/images/logo/logo.svg"
-                alt="Logo"
-                width={150}
-                height={40}
-              />
-              <img
-                className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
-                alt="Logo"
-                width={150}
-                height={40}
-              />
-            </>
-          ) : (
-            <img
-              src="/images/logo/logo-icon.svg"
-              alt="Logo"
-              width={32}
-              height={32}
-            />
-          )}
-        </Link>
-      </div>
+      <div className="flex items-center justify-center py-6">
+  <Link to="/" className="flex items-center justify-center h-[60px]">
+    {isExpanded || isHovered || isMobileOpen ? (
+      <>
+        <img
+          className="dark:hidden"
+          src="/images/logo/BRS-networks-logo.png"
+          alt="Logo"
+          width={70}
+          height={70}
+        />
+        <img
+          className="hidden dark:block"
+          src="/images/logo/BRS-networks-logo.png"
+          alt="Logo"
+          width={70}
+          height={70}
+        />
+      </>
+    ) : (
+      <img
+        src="/images/logo/logo-icon.svg"
+        alt="Logo"
+        width={24}
+        height={24}
+      />
+    )}
+  </Link>
+</div>
+
       <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
         <nav className="mb-6">
           <div className="flex flex-col gap-4">

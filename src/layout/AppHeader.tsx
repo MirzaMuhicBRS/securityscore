@@ -90,7 +90,7 @@ const AppHeader: React.FC = () => {
           <Link to="/" className="xl:hidden">
             <img
               className="dark:hidden"
-              src="./images/logo/logo.svg"
+              src="./images/logo/BRS-networks-logo.png"
               alt="Logo"
             />
             <img
@@ -105,9 +105,9 @@ const AppHeader: React.FC = () => {
             className="flex items-center justify-center w-10 h-10 text-gray-700 rounded-lg z-99999 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 xl:hidden"
           >
             <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
